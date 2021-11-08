@@ -1,29 +1,33 @@
 <?php
 if($_POST)
 {
-	$host = "localhost";
-	$user = "root";
-	$pass = "toor";
-	$db = "vierp";
-	$email = $_POST['email'];
+	include "../config.php";
+	$username = $_POST['username'];	
 	$password = $_POST['password'];
-	echo $email;
-	echo $password;
-	$conn = mysqli_connect($host,$user,$pass,$db);
-	$query = "SELECT * from user_details where user_name ='$email' and user_password ='$password'";
+	
+	if($username == 'admin@xyz.com' && $password == 'admin')
+	{
+		session_start();
+		$_SESSION['admin'] = true;
+		header('location:../Admin_add_user.php');
+	}
 
+		$conn = mysqli_connect($host,$user,$pass,$db);
+		$query = "SELECT gr_no,pass from student_details where gr_no ='$username' and pass ='$password'";
+		echo $username;
 	$result = mysqli_query($conn,$query);
-	if(mysqli_num_rows($result)==1)
+	if(mysqli_num_rows($result) == 1)
 	{
 		session_start();
 		$_SESSION['auth'] = true;
-		$_SESSION['email'] = $email;
+		$_SESSION['username'] = $username;
 		header('location:../user.php');
 	}
 	else
 	{
 		echo 'wrong username or password';
 	}
+	$conn->close();
 }
 
 ?>
@@ -65,8 +69,8 @@ if($_POST)
 						Student/Faculty Login
 					</span>
 
-					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" name="email" placeholder="Email">
+					<div class="wrap-input100 validate-input" >
+						<input class="input100" type="text" name="username" placeholder="Username">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-envelope" aria-hidden="true"></i>
