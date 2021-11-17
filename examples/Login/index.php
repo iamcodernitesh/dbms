@@ -1,33 +1,33 @@
 <?php
 if($_POST)
 {
-	include "../config.php";
-	$username = $_POST['username'];	
-	$password = $_POST['password'];
-	
-	if($username == 'admin@xyz.com' && $password == 'admin')
-	{
-		session_start();
-		$_SESSION['admin'] = true;
-		header('location:../Admin_add_user.php');
-	}
+		include "../config.php";
+		$username = $_POST['username'];	
+		$password = $_POST['password'];
+		
+		if($username == 'admin@xyz.com' && $password == 'admin')
+		{
+			session_start();
+			$_SESSION['admin'] = true;
+			header('location:../Admin_add_user.php');
+		}
 
 		$conn = mysqli_connect($host,$user,$pass,$db);
 		$query = "SELECT gr_no,pass from student_details where gr_no ='$username' and pass ='$password'";
 		echo $username;
-	$result = mysqli_query($conn,$query);
-	if(mysqli_num_rows($result) == 1)
-	{
-		session_start();
-		$_SESSION['auth'] = true;
-		$_SESSION['username'] = $username;
-		header('location:../user.php');
-	}
-	else
-	{
-		echo 'wrong username or password';
-	}
-	$conn->close();
+		$result = mysqli_query($conn,$query);
+		if(mysqli_num_rows($result) == 1)
+		{
+			session_start();
+			$_SESSION['auth'] = true;
+			$_SESSION['username'] = $username;
+			header('location:../user.php');
+		}
+		else
+		{
+			// echo "Wrong Username or Password";
+		}
+		$conn->close();
 }
 
 ?>

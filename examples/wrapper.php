@@ -16,7 +16,7 @@
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <li class="active">
+                    <li>
                         <a href="../examples/Admin_add_user.php">
                             <i class="now-ui-icons ui-1_simple-add"></i>
                             <p>Add Student</p>

@@ -1,3 +1,28 @@
+<?php
+    include "config.php";
+    if($_POST)
+    {
+        $gr_no = $_POST['gr_no'];
+        $email = $_POST['email'];
+        $conn = mysqli_connect($host,$user,$pass,$db);
+        $query = "DELETE from student_details where gr_no='$gr_no'";
+
+        $result = mysqli_query($conn,$query);
+
+        // if(mysqli_query($conn,$query))
+        // {
+        //     echo "Deleted Successfully";
+        // }
+        // else
+        // {
+        //     echo "ERROR: Could not able to execute $query. " . mysqli_error($conn);
+        // }
+        $conn->close();
+    }
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,39 +67,27 @@
                             <div class="card-header">
                                 <h4 class="card-title">Remove Students</h4>
                             </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-6 pr-1">
-                                        <div class="form-group">
-                                            <label>Student Name</label>
-                                            <input type="text" class="form-control"  placeholder="Enter Full Name">
+                            <form method="post">
+                                <div class="card-body">                                
+                                    <div class="row">
+                                        <div class="col-md-6 pr-1">
+                                            <div class="form-group">
+                                                <label>GR Number</label>
+                                                <input type="text" class="form-control"  placeholder="Enter General Register Number" name="gr_no">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 pl-1">
+                                            <div class="form-group">
+                                                <label>Email Id</label>
+                                                <input type="text" class="form-control"  placeholder="Enter valid Email ID" name="email" >
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 pl-1">
-                                        <div class="form-group">
-                                            <label>Roll Number</label>
-                                            <input type="text" class="form-control"  placeholder="Enter Roll Number" >
-                                        </div>
-                                    </div>
+                                
+                                    <button class="btn btn-info" type="submit" onclick="demo.showNotification('bottom','left')">Remove Student</button>
+                                    
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6 pr-1">
-                                        <div class="form-group">
-                                            <label>GR Number</label>
-                                            <input type="text" class="form-control"  placeholder="Enter General Register Number">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 pl-1">
-                                        <div class="form-group">
-                                            <label>Email Id</label>
-                                            <input type="text" class="form-control"  placeholder="Enter valid Email ID" >
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <button class="btn btn-success btn-block" onclick="demo.showNotification('bottom','left')">Remove Student</button>
-                                </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
 
@@ -89,17 +102,7 @@
                                 <a href="">
                                     NBA'S
                                 </a>
-                            </li>
-                            <!-- <li>
-                                <a href="">
-                                    About Us
-                                </a>
-                            </li> -->
-                            <!-- <li>
-                                <a href="">
-                                    Blog
-                                </a>
-                            </li> -->
+                            </li>                           
                         </ul>
                     </nav>
                     <div class="copyright">
